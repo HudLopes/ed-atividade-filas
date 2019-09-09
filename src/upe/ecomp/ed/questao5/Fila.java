@@ -3,25 +3,69 @@ package upe.ecomp.ed.questao5;
 public class Fila {
 
 	No inicio, fim;
-	
+
 	void preenche(Fila f1, Fila f2, Fila retorno) {
-		f1.fim.setProximo(f2.inicio);
-		f1.fim = f2.fim;
-		
-		retorno = f1;
-		
-		retorno.ordena();
-	}
-	
-	void ordena() {
-		No tmp = inicio;
-		while(tmp != null) {
-			if(tmp.getValor() > tmp.getProximo().getValor()) {
-				No tmp2 = tmp;
-				tmp = tmp.getProximo();
+		No tmp1 = f1.getInicio();
+		No tmp2 = f2.getInicio();
+
+		do {
+			if (f1.isEmpty()) {
+				retorno.enqueue(f2.dequeue());
+			} else if (f2.isEmpty()) {
+				retorno.enqueue(f1.dequeue());
+			} else {
+				if (tmp1.getValor() < tmp2.getValor()) {
+					retorno.enqueue(f1.dequeue());
+					tmp1 = tmp1.getProximo();
+				} else {
+					retorno.enqueue(f2.dequeue());
+					tmp2 = tmp2.getProximo();
+				}
 			}
-			
-			tmp = tmp.getProximo();
+		} while (!f1.isEmpty() || !f2.isEmpty());
+	}
+
+	public int dequeue() {
+		int r = -1;
+		if (inicio != null) {
+			r = inicio.getValor();
+			inicio = inicio.getProximo();
+			if (inicio == null)
+				fim = null;
+		}
+		return r;
+	}
+
+	public void enqueue(int c) {
+		No novo = new No(c);
+		if (inicio == null) {
+			inicio = novo;
+			fim = novo;
+		} else {
+			fim.setProximo(novo);
+			fim = novo;
 		}
 	}
+
+	public boolean isEmpty() {
+		return inicio == null;
+	}
+
+	public void imprimir() {
+		if (!isEmpty()) {
+			No p = inicio;
+			while (p != null) {
+				System.out.print(" -> " + p.getValor());
+				p = p.getProximo();
+			}
+			System.out.println("");
+		} else {
+			System.out.println("Fila vazia!");
+		}
+	}
+
+	public No getInicio() {
+		return inicio;
+	}
+
 }
