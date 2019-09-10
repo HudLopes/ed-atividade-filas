@@ -23,11 +23,14 @@ public class Teste {
 					}
 				}
 			}
-
-			fila.imprimir();
 		} else {
 			// entrada invalida
 		}
+		Fila tmp = new Fila();
+		Fila retorno = new Fila();
+		Fila invertida = fila.inverte(fila, tmp, retorno);
+		
+		invertida.imprimirFatoracao();
 	}
 
 	static boolean primo(int n) {
@@ -43,8 +46,12 @@ public class Teste {
 	}
 
 	public static void main(String[] args) {
-		// TODO Auto-generated method stub
+		retornaFatoracaoPrima(20);
+		System.out.print("\n");
 		retornaFatoracaoPrima(3960);
+		System.out.print("\n");
+		//output no pdf da atividade está faltando o 13
+		retornaFatoracaoPrima(6552);
 	}
 
 }

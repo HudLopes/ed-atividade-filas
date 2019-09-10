@@ -3,7 +3,7 @@ package upe.ecomp.ed.questao4;
 public class Fila {
 
 	No inicio, fim;
-	
+
 	public int dequeue() {
 		int r = -1;
 		if (inicio != null) {
@@ -27,7 +27,18 @@ public class Fila {
 	}
 
 	public boolean isEmpty() {
-		return inicio == null;
+		return inicio == null || inicio.getValor() == -1;
+	}
+
+	public Fila inverte(Fila fila, Fila tmp, Fila retorno) {
+		while (!fila.isEmpty() || !tmp.isEmpty()) {
+			if (fila.inicio == fila.fim) {
+				retorno.enqueue(fila.dequeue());
+				inverte(tmp, fila, retorno);
+			}
+			tmp.enqueue(fila.dequeue());
+		}
+		return retorno;
 	}
 
 	public void imprimir() {
@@ -35,6 +46,21 @@ public class Fila {
 			No p = inicio;
 			while (p != null) {
 				System.out.print(" -> " + p.getValor());
+				p = p.getProximo();
+			}
+			System.out.println("");
+		} else {
+			System.out.println("Fila vazia!");
+		}
+	}
+
+	public void imprimirFatoracao() {
+		if (!isEmpty()) {
+			No p = inicio;
+			System.out.print(p.getValor());
+			p = p.getProximo();
+			while (p != null) {
+				System.out.print(" * " + p.getValor());
 				p = p.getProximo();
 			}
 			System.out.println("");

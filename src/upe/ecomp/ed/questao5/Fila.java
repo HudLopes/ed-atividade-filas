@@ -54,6 +54,8 @@ public class Fila {
 	public void imprimir() {
 		if (!isEmpty()) {
 			No p = inicio;
+			System.out.print(p.getValor());
+			p = p.getProximo();
 			while (p != null) {
 				System.out.print(" -> " + p.getValor());
 				p = p.getProximo();
